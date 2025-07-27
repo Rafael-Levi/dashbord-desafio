@@ -1,12 +1,23 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import requests
+from io import BytesIO
+
 
 # --- Carregar os dados ---
-file_path = "data/dados.xlsx"
+SHEET_ID = "1RFz0z0fZ1KtJm54u6pcuUiiHg1O-0GdSrD-3HAhs09A" 
+EXCEL_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=xlsx"
 
-df_resumo = pd.read_excel(file_path, sheet_name="Resumo Executivo")
-df_analise = pd.read_excel(file_path, sheet_name="Análise CH por Escola")
+# Baixar a planilha como Excel
+response = requests.get(EXCEL_URL)
+response.raise_for_status()  
+
+excel_file = BytesIO(response.content)
+
+# Ler as abas específicas
+df_resumo = pd.read_excel(excel_file, sheet_name="Resumo Executivo", engine="openpyxl")
+df_analise = pd.read_excel(excel_file, sheet_name="Análise CH por Escola", engine="openpyxl")
 
 # --- Título do app ---
 st.set_page_config(page_title="Dashboard CH - TOM", layout="wide")
