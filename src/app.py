@@ -11,7 +11,7 @@ load_dotenv()
 
 # Buscar variáveis de ambiente
 SHEET_ID = st.secrets["SHEET_ID"]
-EXCEL_URL = st.secrets["EXCEL_URL"]
+EXCEL_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=xlsx"
 
 
 response = requests.get(EXCEL_URL)
