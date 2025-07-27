@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # --- Carregar os dados ---
-file_path = "../data/dados.xlsx"
+file_path = "data/dados.xlsx"
 
 df_resumo = pd.read_excel(file_path, sheet_name="Resumo Executivo")
 df_analise = pd.read_excel(file_path, sheet_name="Análise CH por Escola")
